@@ -3,7 +3,9 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app.api.api import api_router
 from app.core.config import settings
-from app.db.session import engine, Base
+from app.db.session import engine
+
+from app.db.base_class import Base
 import app.models
 
 app = FastAPI(
