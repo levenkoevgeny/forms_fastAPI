@@ -1,12 +1,5 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
-
-
-class OrganizationBase(BaseModel):
-    organization_name: str
-
-    class Config:
-        orm_mode = True
 
 
 class TestDataBase(BaseModel):
@@ -19,3 +12,13 @@ class TestDataBase(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class OrganizationBase(BaseModel):
+    organization_name: str
+    tests: List[TestDataBase]
+
+    class Config:
+        orm_mode = True
+
+

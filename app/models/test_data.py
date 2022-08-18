@@ -2,13 +2,16 @@ from datetime import datetime
 from sqlalchemy import Boolean, Column, Integer, Text, String, DateTime, ForeignKey
 from app.db.base_class import Base
 from sqlalchemy.orm import relationship
+from sqlalchemy import func
 
 
 class Organization(Base):
     id = Column(Integer, primary_key=True, index=True)
     organization_name = Column(String, nullable=False)
-    data_created = Column(DateTime, default=datetime.utcnow())
+    data_created = Column(DateTime, server_default=func.now())
     tests = relationship("TestData", back_populates="organization")
+
+    __mapper_args__ = {"eager_defaults": True}
 
     def __str__(self):
         return self.organization_name
@@ -31,7 +34,7 @@ class TestData(Base):
     # questionaries = relationship("QuestionaryData", back_populates="test")
 
     def __str__(self):
-        return self.organization_name
+        return self.test_name
 
     class Config:
         orm_mode = True
